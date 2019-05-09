@@ -22,14 +22,14 @@ if($_COOKIE['role_id'] == 1){
                 <a data-toggle="collapse" data-parent="#accordion" 
                 href="#collapseOne">
                 <span class="glyphicon glyphicon-lock"></span>
-                Privilege Management
+                A Management
                 </a>
             </h4>
         </div>
         <div id="collapseOne" class="panel-collapse collapse in">
             <div class="panel-body">
                 <ul>
-                    <li><a class="links" href="../../role/Role/role.html" target="content">Check & Modify Privilege</a></li>
+                    <li><a class="links" href="../../role/Role/role.html" target="content">XXXXXX</a></li>
                 </ul>
             </div>
         </div>
@@ -40,14 +40,14 @@ if($_COOKIE['role_id'] == 1){
                 <a data-toggle="collapse" data-parent="#accordion" 
                 href="#collapseTwo">
                 <span class="glyphicon glyphicon-briefcase"></span>
-                Comany Management
+                B Management
             </a>
             </h4>
         </div>
         <div id="collapseTwo" class="panel-collapse collapse">
             <div class="panel-body">
                 <ul>
-                <li id="link1"><a  class="links" href="../../Departments/departments/departments.html" target="content">Check Departments</a></li>
+                <li id="link1"><a  class="links" href="../../Departments/departments/departments.html" target="content">XXXXXX</a></li>
                 </ul>
             </div>
         </div>
@@ -58,14 +58,14 @@ if($_COOKIE['role_id'] == 1){
                 <a data-toggle="collapse" data-parent="#accordion" 
                 href="#collapsefive">
                 <span class="glyphicon glyphicon-briefcase"></span>
-                Comany Management
+                C Management
             </a>
             </h4>
         </div>
         <div id="collapsefive" class="panel-collapse collapse">
             <div class="panel-body">
                 <ul>
-                <li id="link1"><a  class="links" href="../../products/products/products.html" target="content">Check Products</a></li>
+                <li id="link1"><a  class="links" href="../../products/products/products.html" target="content">XXXXXX</a></li>
                 </ul>
             </div>
         </div>
@@ -76,15 +76,15 @@ if($_COOKIE['role_id'] == 1){
                 <a data-toggle="collapse" data-parent="#accordion" 
                 href="#collapseThree">
                 <span class="glyphicon glyphicon-user"></span>
-                Customers Management
+                D Management
                 </a>
             </h4>
         </div>
         <div id="collapseThree" class="panel-collapse collapse">
             <div class="panel-body">
                 <ul>
-                    <li><a class="links" href="../../customer/Information/information" target="content">Check Customers</a></li>
-                    <li><a class="links" href="../../afterSale/Index/index" target="content">Check Aftersalelists</a></li>
+                    <li><a class="links" href="../../customer/Information/information" target="content">XXXXXX</a></li>
+                    <li><a class="links" href="../../afterSale/Index/index" target="content">XXXXXX</a></li>
                 </ul>
             </div>
         </div>
@@ -95,14 +95,14 @@ if($_COOKIE['role_id'] == 1){
                 <a data-toggle="collapse" data-parent="#accordion" 
                 href="#collapseFour">
                 <span class="glyphicon glyphicon-list-alt"></span>
-                Orderlists Management
+                E Management
                 </a>
             </h4>
         </div>
         <div id="collapseFour" class="panel-collapse collapse">
             <div class="panel-body">
                 <ul>
-                    <li><a class="links" href="../../customOrder/Information/information" target="content">Check Orderlists</a></li>
+                    <li><a class="links" href="../../customOrder/Information/information" target="content">XXXXXX</a></li>
                 </ul>
             </div>
         </div>

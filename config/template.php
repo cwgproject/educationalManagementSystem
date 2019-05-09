@@ -32,4 +32,12 @@ return [
     'taglib_begin' => '{',
     // 标签库标签结束标记
     'taglib_end'   => '}',
+    // 输出替换
+    'tpl_replace_string'  =>  [
+        '__STATIC__'=>'/educationalManagementSystem/public/static',
+        '__JS__' => '/educationalManagementSystem/public/static/js',
+        '__CSS__'    => '/educationalManagementSystem/public/static/css',
+        '__IMG__' => '/educationalManagementSystem/public/static/images',
+        '__ROOT__' => '/educationalManagementSystem/public',
+    ]
 ];
