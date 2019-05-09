@@ -1,0 +1,68 @@
+@font-face 
+{
+  font-family: "login";
+  src: url('../font/RioGrande.ttf');
+}
+@font-face 
+{
+  font-family: "button";
+  src: url('../font/INFECTED.ttf');
+}
+body
+{
+background:url('../images/background.png') no-repeat;
+background-size: 100%;
+}
+html,body
+{
+  width:100%;
+  height:100%;
+}
+#forms
+{
+  position: absolute;
+  margin-left: -20%;
+  margin-top: 8%;
+}
+fieldset
+{
+	border-color:white;
+	box-shadow:10px 10px 10px  whitesmoke;
+	border-top-right-radius:40px;
+  border-bottom-left-radius:50px;
+}
+#fonts
+{
+  font-family: login;
+  font-size: 55px;
+  text-shadow: 10px 10px 15px rgb(219, 214, 214);
+} 
+#btn
+{
+  font-family: "button";
+  font-size: 35px;
+  background-color: rgb(26, 189, 243);
+  border-radius: 25px;
+  box-shadow: 0 3.5px 6px -1px rgba(0, 0, 255,0.8);
+}
+#btn:hover
+{
+  background-color:rgb(4, 155, 224);
+}
+#fyp
+{
+  font-size: 12px;
+  font-weight: bold;
+}
+#form9,#form10
+{
+  border-radius: 30px;
+}
+#images
+{
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  left: 15%;
+  top:12%;
+}

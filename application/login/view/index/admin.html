@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+        <style> 
+            @font-face
+            {
+                font-family: myfont;
+                src:url('__ROOT__/static/font/DK Jambo.otf');
+            }
+        </style>
+<head> 
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Admin</title>
+        <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="theme.css" type="text/css">
+        <link rel="stylesheet" href="__CSS__/admin.css" type="text/css">     
+</head>
+
+<html>
+
+<body>
+    <nav class="navbar navbar-expand-md  navbar-dark"  style="background:rgb(2, 33, 63);">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img id="images" src="__ROOT__/static/images/logo.png"> 
+                <h1 id="h1s">Customer Relationship Management System</h1>
+            </a>
+            <?php
+            echo " <h1 style='font-family:myfont;font-size:18px;margin-right:-50%;color:#d8c427;position: absolute;left:67%;top:45%;'>HELLO &nbsp ".cookie('employee_name').'<br>THE LOGIN TIME IS &nbsp'.cookie('rec_time')." </h1> ";  
+            ?>            
+            <a id="loginout" class="btn navbar-btn ml-2 text-white btn-secondary" href="{:url('index/loginOut')}">
+            <i class="fa d-inline fa-lg fa-sign-in"></i>
+            LOGOUT
+            </a>           
+        </div>
+    </nav>
+
+    <div id="bodys">
+                    <iframe  id="ifream1" src="__ROOT__/static/htmls/links.php" name="Navigation"></iframe>
+                    <iframe  id="ifream2" name="content"></iframe>
+    </div>
+
+        <div class="py-5 text-white" style="background:rgb(2, 33, 63);">
+                <div class="row">
+                  <div class="col-md-9" >
+                    <p>© Copyright 2018 Customer Relationship Management - All rights reserved.</p>
+                  </div>
+                  <div class="col-4 col-md-1 align-self-center">
+                    <a href="https://weibo.com/haierexpo" target="_blank">
+                      <i class="fa fa-fw fa-3x text-white fa-weibo"></i>
+                    </a>
+                  </div>
+                  <div class="col-4 col-md-1 align-self-center">
+                    <a href="https://wechat.com" target="_blank">
+                      <i class="fa fa-fw fa-3x text-white fa-weixin"></i>
+                    </a>
+                  </div>
+                  <div class="col-4 col-md-1 align-self-center">
+                    <a href="https://www.weibo.com" target="_blank">
+                      <i class="fa fa-fw text-white fa-3x fa-tencent-weibo"></i>
+                    </a>
+                </div>
+            </div>
+    </div> 
+   
+</body>
+
+</html>
+
+

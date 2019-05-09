@@ -1,0 +1,82 @@
+@font-face
+{
+    font-family: titles;
+    src:url('../font/Drifttype.ttf');
+}
+@font-face
+{
+    font-family: myfont;
+    src:url('../font/DK Jambo.otf');
+}
+#bodys
+{
+    height: 452px;
+}
+#ifream1
+{
+    width: 15%;
+    float: left;
+    height: 100%;
+}
+#ifream2
+{
+    width: 85%;
+    float: left;
+    height: 100%;
+}
+#images
+{
+    height: 100px;
+    width: 100px;
+    position: relative;
+    left: -135%;
+    top: -5%;
+}
+#h1s
+{
+    font-size:22px; 
+    position: absolute;  
+    top: 60%; 
+    left: 12%;
+    font-family: titles;
+}
+#loginout
+{
+    position: absolute;
+    right: 3%;
+    top: 50%; 
+    font-family: titles;
+}
+p
+{
+    position: absolute;
+    right:50%;
+    top:25%;
+    font-family: myfont; 
+}
+.links  
+{
+    text-decoration:none;
+    color: black;
+
+}
+.links:hover
+{
+    font-style: italic;
+    color: cornflowerblue;
+}
+li
+{
+    padding-bottom: 20%;
+    font-family: myfont;
+    
+}
+li:hover
+{
+    font-style: italic;
+    color: cornflowerblue;
+}
+#link1
+{
+    margin-top: 10%;
+}
