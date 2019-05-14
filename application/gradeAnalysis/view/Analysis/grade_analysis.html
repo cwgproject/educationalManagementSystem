@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/tp5/public/static/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="/tp5/public/static/styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="/tp5/public/static/styles/kendo.default.mobile.min.css" />
+
+    <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+
+    <script src="/tp5/public/static/js/jquery.min.js"></script>
+    <script src="/tp5/public/static/js/kendo.all.min.js"></script>
+    
+    <style>
+        .first
+        {
+               
+                margin-top: 1%;
+                border-radius: 15px;
+				outline: none;
+				box-shadow:  0 2.5px 5px -1px black;
+				font-weight: bold;
+				float: left;
+				margin-bottom: 1%;
+        }
+        select:hover
+		{
+			font-style: italic;
+		}
+        .yy
+        {
+            /* text-shadow: 10px 10px 50px #000; */
+
+        }
+    
+    </style>
+
+    <script type="text/javascript">
+        function getUrl(){
+            //匹配url中以?或&连接的字符，拆成数组
+            var url = document.URL.match(/[?&][^?&]+=[^?&]+/g);
+            if (url===null) {
+                return '';
+            }else{
+                for (var i = 0; i<url.length; i++) {
+                    url[i]=url[i].slice(1);
+                }
+            }
+            return url;
+        }
+        
+        function filter(name,val){
+            var getString=getUrl()
+            var oldUrl=document.URL;
+            var newUrl;
+            if (getString.length>0) {
+                var repeat=true;
+                for (var i = 0; i < getString.length; i++) {
+                    if (getString[i].indexOf(name)>=0) {
+                        repeat=false;
+                        newUrl=oldUrl.replace(getString[i],name+'='+val);
+                    }
+                }
+                if(repeat){
+                    newUrl=oldUrl+'&'+name+'='+val;
+                }
+            }else{
+                newUrl=oldUrl+'?'+name+'='+val;
+            }
+            window.location=newUrl;
+        }
+        $(document).ready(function() {
+			$("#course").val("{$course_id}");
+            $("#class").val("{$class_id}");
+            $("#student").val("{$stu_id}");
+
+            $("#class").change(function() {
+                    if($(this).val() == "0"){
+                        self.location.href = "?";
+                    }
+                    else{
+                        filter("class_id",$(this).val());
+                    }
+            });
+            $("#course").change(function() {
+                    if($(this).val() == "0"){
+                        self.location.href = "?";
+                    }
+                    else{
+                        filter("course_id",$(this).val());
+                    }
+            });
+            $("#student").change(function() {
+                    if($(this).val() == "0"){
+                        self.location.href = "?";
+                    }
+                    else{
+                        filter("stu_id",$(this).val());
+                    }
+            });
+        });
+    </script>
+
+</head>
+<body>
+        {include file="Analysis/heads"/}
+<div id="example">
+    <h1 class="yy">课程/班级成绩统计</h1>
+    <select name="course" id="course" class="first">
+        <option value="0">请选择课程</option>
+        {volist name="course" id="co" }   
+        <option value="{$co.course_id}">{$co.course_name}</option>
+        {/volist}   
+    </select>
+    <select name="class" id="class" class="first">
+        <option value="0">请选择班级</option>
+        {volist name="class" id="cl" }   
+        <option value="{$cl.class_id}">{$cl.class_name}</option>
+        {/volist}   
+</select>
+    <hr>
+    <hr>
+    <hr>
+    <div class="demo-section k-content wide">
+        <div id="chart"></div>
+    </div>
+    <div class="demo-section k-content wide">
+        <div id="pie"></div>
+    </div>
+<h1 class="yy">查看指定学生成绩</h1>
+    <select name="student" id="student" class="first"> 
+        <option value="0">请选择学生</option>
+        {volist name="student" id="s" }   
+        <option value="{$s.stu_id}">{$s.stu_name}</option>
+        {/volist}   
+    </select>
+
+    <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>\</th>
+                    <th>班级</th>
+                    <th>姓名</th>
+                    <th>学号</th>
+                    <th>课程</th>
+                    <th>分数</th>
+
+                </tr>
+            </thead>
+    
+            {volist name="stugrade" id="grade" }
+            <tr {if $i<=3} class="text-danger"{/if}>
+                <td>{$i}</td>
+                <td>{$grade.class_name}</td>
+                <td>{$grade.stu_name}</td>
+                <td>{$grade.stu_rollno}</td>
+                <td>{$grade.course_name}</td>
+                <td class="{if $grade.mark >= 75}table-success 
+                        {elseif $grade.mark < 75 && $grade.mark >= 60}table-warning
+                        {else}table-danger{/if}">{$grade.mark}</td>
+            </tr>
+            {/volist}
+        </table>
+
+    <script>
+        function createChart() {
+            var avgmax = {$avgmax};
+            $("#chart").kendoChart({
+                title: {
+                    text: "各班级成绩分析"
+                },
+                legend: {
+                    position: "bottom"
+                },
+                series: avgmax,
+                categoryAxis: {
+                    categories: ["经济学院1班", "经济学院2班", "国防学院1班", "国防学院2班", "软件技术学院1班", "软件技术学院2班", "体育学院1班", "体育学院2班", "艺术学院1班","艺术学院2班"]
+                },
+               
+            });
+
+
+
+            $("#pie").kendoChart({
+                title: {
+                    position: "bottom",
+                    text: "课程班级成绩分布"
+                },
+                legend: {
+                    visible: false
+                },
+                chartArea: {
+                    background: ""
+                },
+                seriesDefaults: {
+                    labels: {
+                        visible: true,
+                        background: "transparent",
+                        template: "#= category #: \n #= value#%"
+                    }
+                },
+                series: [{
+                    type: "pie",
+                    startAngle: 150,
+                    data: [{
+                        category: "差",
+                        value: {$grade1},
+                        color: "#9de219"
+                    },{
+                        category: "一般",
+                        value: {$grade2},
+                        color: "#90cc38"
+                    },{
+                        category: "良好",
+                        value: {$grade3},
+                        color: "#068c35"
+                    },{
+                        category: "优秀",
+                        value: {$grade4},
+                        color: "#006634"
+                    }]
+                }],
+                tooltip: {
+                    visible: true,
+                    format: "{0}%"
+                }
+            });
+        }
+
+        $(document).ready(createChart);
+        $(document).bind("kendo:skinChange", createChart);
+    </script>
+</div>
+{include file="Analysis/footer"/}
+
+</body>
+</html>
