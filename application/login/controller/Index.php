@@ -24,10 +24,16 @@ class Index extends Controller
     	if(empty($param['password'])){
     		
     		$this->error('密码不能为空');
-    	}
+		}
+		
+		//验证码
+		if($param['yzm'] != session('regsession_code')){
+			$this->error('请输入正确验证码！');
+			die;
+		}
     	
     	// 验证用户名
-    	$has = db('buemployee')->where('employee_name', $param['userid'])->find();
+    	$has = db('unuser')->where('user_name', $param['userid'])->find();
     	if(empty($has)){
     		
     		$this->error('用户名不存在');
@@ -38,11 +44,11 @@ class Index extends Controller
 		// }
 		
 		//验证帐号状态
-		if($has['employee_status'] == 1){
+		if($has['user_status'] == 1){
 			$etime = ceil(30-((time() - $has['time_last_error'])/60));
 			if((time() - $has['time_last_error']) > 1800){
-				$now['employee_status'] = 0;  //若超过锁定时间，帐号恢复正常  （status-0)
-				Db::table('buemployee')->where('employee_id', $has['employee_id'])->update($now);
+				$now['user_status'] = 0;  //若超过锁定时间，帐号恢复正常  （status-0)
+				Db::table('unuser')->where('user_id', $has['user_id'])->update($now);
 			}
 			else{
 				$this->error('您的帐号已锁定,请'.$etime.'分钟之后登录！');
@@ -50,18 +56,18 @@ class Index extends Controller
 		}
 
     	// 验证密码
-    	if($has['employee_password'] != md5($param['password'])){
-		// if($has['employee_password'] !== $param['password']){
-			if($has['employee_count'] > 1){
-				$now['employee_count'] = $has['employee_count'] - 1;
-				Db::table('buemployee')->where('employee_id', $has['employee_id'])->update($now);
-				$this->error('密码输入错误,您还能输入'.$now['employee_count'].'次');
+    	if($has['user_password'] != md5($param['password'])){
+		// if($has['user_password'] !== $param['password']){
+			if($has['user_count'] > 1){
+				$now['user_count'] = $has['user_count'] - 1;
+				Db::table('unuser')->where('user_id', $has['user_id'])->update($now);
+				$this->error('密码输入错误,您还能输入'.$now['user_count'].'次');
 			}
 			else{
-				$now['employee_status'] = 1;
+				$now['user_status'] = 1;
 				$now['time_last_error'] = time();
-				$now['employee_count'] = 3;
-				Db::table('buemployee')->where('employee_id', $has['employee_id'])->update($now);
+				$now['user_count'] = 3;
+				Db::table('unuser')->where('user_id', $has['user_id'])->update($now);
 				$this->error('密码错误超过3次,帐号已锁定，请30分钟之后登录！');
 			}
 			
@@ -118,33 +124,36 @@ class Index extends Controller
 		return $browser;
 		}
 
-        // 记录用户登录信息
-        cookie('employee_id', $has['employee_id'], 3600);// 一个小时有效期
-        cookie('employee_name', $has['employee_name'], 3600);
-		cookie('department_id', $has['department_id'], 3600);
-		cookie('role_id', $has['role_id'], 3600);
+    	// 记录用户登录信息
+		cookie('user_name', $has['user_name'], 3600);
 		cookie('rec_time', $has['rec_time'], 3600);
 		cookie('rec_address', $has['rec_address'], 3600);
 		//重置账户状态
-		$now['employee_status'] = 0;
-		$now['employee_count'] = 3;
-		$now['rec_address'] = $this->request->ip();//获取ip地址,但全为0.0.0.0
+		$now['user_status'] = 0;
+		$now['user_count'] = 3;
+		$now['rec_address'] = $this->request->ip();//获取ip地址
 		$now['rec_time'] = date("Y-m-d H:i:s");//获取系统时间
 		$now['rec_useraent'] = GetBrowser();//获取浏览器信息
-		Db::table('buemployee')->where('employee_id', $has['employee_id'])->update($now);
+		Db::table('unuser')->where('user_id', $has['user_id'])->update($now);
 
 	
-    	// if($has['role_id'] == 1){
-        //     $this->redirect(url('index/admin'));
-        // }
-        // else if($has['role_id'] == 2){
-        //     $this->redirect(url('index/manager'));
-        // }
-        // else{
-		// 	$this->redirect(url('index/employee'));
-		// }
-
-		$this->redirect(url('index/admin'));
+    	if($has['role_id'] == 1){
+            $this->redirect(url('index/admin'));
+        }
+        else if($has['role_id'] == 2){
+			$userinfo = db('unuser,unteacher')->where('unuser.user_name = unteacher.tea_rollno')->find();
+			cookie('tea_id', $userinfo['tea_id'], 3600);// 一个小时有效期
+			cookie('tea_name', $userinfo['tea_name'], 3600);
+            $this->redirect(url('index/teacher'));
+        }
+        else{
+			$userinfo = db('unuser,unstudent')->where('unuser.user_name = unstudent.stu_rollno')->find();
+			// halt($userinfo);
+			cookie('stu_id', $userinfo['stu_id'], 3600);// 一个小时有效期
+			cookie('stu_name', $userinfo['stu_name'], 3600);
+			$this->redirect(url('index/student'));
+        }
+        
         
     }
      
@@ -161,6 +170,40 @@ class Index extends Controller
     {
         return $this->fetch();
 	} 
+
+	public function code(){ //生成验证码
+		$code=array("width"=>50,"height"=>25,	"len"=>4,			 
+			"char"=>1,"imx"=>8,"imy"=>6,"cookie"=>"regsession_code",
+			"value"=>""
+		);
+
+		if($code["char"]==1){
+		$char=array(0,1,2,3,4,5,6,7,8,9);
+		}elseif($code["char"]==2){
+		$char=array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
+		}elseif($code["char"]==3){
+			$char=array("0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
+		}
+		for($i=0;$i<$code["len"];$i++){
+			$code["value"].=$char[rand(0,count($char)-1)];
+		}
+
+		session('regsession_code',$code["value"]);
+		@header("Content-Type:image/png");
+
+		$im=imagecreate($code["width"],$code["height"]);
+		$back=imagecolorallocate($im,0xff,0xff,0xff);	//背景色
+		$pix=imagecolorallocate($im,221,241,251);	//模糊点颜色
+		$font=imagecolorallocate($im,23,162,231);	//字体色
+		for($i=0;$i<1000;$i++){
+			imagesetpixel($im,rand(0,$code["width"]),rand(0,$code["height"]),$pix);
+		}
+		 
+		imagestring($im,5,$code["imx"],$code["imy"],$code["value"],$font);
+		imagerectangle($im,0,0,$code["width"]-1,$code["height"]-1,$font);
+		imagepng($im);
+		imagedestroy($im);
+	}
 
 
 }

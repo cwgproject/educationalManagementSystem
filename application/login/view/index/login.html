@@ -1,48 +1,70 @@
 <!DOCTYPE html>
-<?php 
-session_start(); //启用会话变量    
-?>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
-    <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-    <!-- <link rel="stylesheet" href="theme.css" type="text/css">
-    <link rel="stylesheet" href="__CSS__/login.css" type="text/css">    -->
-  </head>
-  
 <html>
-
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>教务管理系统</title>
+    <meta name="author" content="DeathGhost" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/images/style.css" tppabs="css/style.css" />
+    <style>
+        body{height:100%;background:#16a085;overflow:hidden;}
+        canvas{z-index:-1;position:absolute;}
+        body,td,th {
+	       font-size: 0.28em;
+        }
+    </style>
+    <script src="__STATIC__/js/jquery.js"></script>
+    <script src="__STATIC__/js/verificationNumbers.js" tppabs="js/verificationNumbers.js"></script>
+    <script src="__STATIC__/js/Particleground.js" tppabs="js/Particleground.js"></script>
+    <script>
+        $(document).ready(function() {
+            //粒子背景特效
+            $('body').particleground({
+                dotColor: '#5cbdaa',
+                lineColor: '#5cbdaa'
+            });
+            //验证码
+            createCode();
+            //测试提交，对接程序删除即可
+            $(".submit_btn").click(function(){
+	           location.href="javascrpt:;"/*tpa=http://***index.html*/;
+            });
+        });
+    </script>
+</head>
 <body>
-    
-  <div class="py-5 text-center">
-    <div  id="forms" class="container">
-      <div class="row">
-        <div id="forms1" class="mx-auto col-md-6 col-10 p-5">
-          <form action="{:url('index/dologin')}" method="post">
-              <img id="images" src="__ROOT__/static/images/logo.png">
-              <fieldset class="mx-auto col-md-12 col-5 p-5">
-              <legend id="fonts" class="mb-4 text-light">(Log in)</legend>
-              <div class="form-group"> <input  type="text" class="form-control" name="userid" placeholder="Enter email" id="form9"> </div>
-              <div class="form-group mb-3"> <input type="password" class="form-control" name="password" placeholder="Password" id="form10"> 
-                <small class="form-text text-muted text-right"><a id="fyp" href="#"> Forget your password?</a></small> 
-              </div> 
-              <button id="btn" type="submit" class="btn btn-primary">Submit</button>
-            </fieldset>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" crossorigin="anonymous" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  
+    <dl class="admin_login">
+        <dt>
+            <form name="form1" method="post" action="{:url('index/dologin')}">
+                <strong><font color=white>教务管理系统</font></strong>
+                <em>Management System</em>
+                <dd class="user_icon">
+                    <input type="text" placeholder="账号" class="login_txtbx" name="userid" id="userid"/>
+                </dd>
+                <dd class="pwd_icon">
+                    <input type="password" placeholder="密码" class="login_txtbx" name="password" id="password"/>
+                </dd>
+                
+                <dd class="val_icon">
+                    <div class="checkcode">
+                        <input type="text"  placeholder="验证码" maxlength="4" class="login_txtbx" id="yzm" name="yzm">   
+                    </div>
+                    &nbsp; <img alt="刷新验证码" onClick="change(this)" src="{:url('index/code')}" style="cursor:pointer; padding-top:10px;">
+                </dd>
+                <dd>
+                    <input type="submit" value="立即登陆" class="submit_btn"/> <input name="login" type="hidden" id="login" value="1">
+                </dd>
+                <dd>
+                </dd>
+            </form>
+        </dt>
+    </dl>
 </body>
-
+<script>
+    function change(obj){
+        var src="{:url('code',['time'=>time()])}";
+        console.log(src)
+        $(obj).attr('src',src)
+    }
+</script>
 </html>
+
