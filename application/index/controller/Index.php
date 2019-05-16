@@ -33,7 +33,7 @@ class Index extends Controller
 		}
     	
     	// 验证用户名
-    	$has = db('unuser')->where('user_name', $param['userid'])->find();
+    	$has = db('un_user')->where('user_name', $param['userid'])->find();
     	if(empty($has)){
     		
     		$this->error('用户名不存在');
@@ -48,7 +48,7 @@ class Index extends Controller
 			$etime = ceil(30-((time() - $has['time_last_error'])/60));
 			if((time() - $has['time_last_error']) > 1800){
 				$now['user_status'] = 0;  //若超过锁定时间，帐号恢复正常  （status-0)
-				Db::table('unuser')->where('user_id', $has['user_id'])->update($now);
+				Db::table('un_user')->where('user_id', $has['user_id'])->update($now);
 			}
 			else{
 				$this->error('您的帐号已锁定,请'.$etime.'分钟之后登录！');
@@ -60,14 +60,14 @@ class Index extends Controller
 		// if($has['user_password'] !== $param['password']){
 			if($has['user_count'] > 1){
 				$now['user_count'] = $has['user_count'] - 1;
-				Db::table('unuser')->where('user_id', $has['user_id'])->update($now);
+				Db::table('un_user')->where('user_id', $has['user_id'])->update($now);
 				$this->error('密码输入错误,您还能输入'.$now['user_count'].'次');
 			}
 			else{
 				$now['user_status'] = 1;
 				$now['time_last_error'] = time();
 				$now['user_count'] = 3;
-				Db::table('unuser')->where('user_id', $has['user_id'])->update($now);
+				Db::table('un_user')->where('user_id', $has['user_id'])->update($now);
 				$this->error('密码错误超过3次,帐号已锁定，请30分钟之后登录！');
 			}
 			
@@ -124,7 +124,8 @@ class Index extends Controller
 		return $browser;
 		}
 
-    	// 记录用户登录信息
+        // 记录用户登录信息
+        cookie('role_id', $has['role_id'], 3600);
 		cookie('user_name', $has['user_name'], 3600);
 		cookie('rec_time', $has['rec_time'], 3600);
 		cookie('rec_address', $has['rec_address'], 3600);
@@ -134,31 +135,31 @@ class Index extends Controller
 		$now['rec_address'] = $this->request->ip();//获取ip地址
 		$now['rec_time'] = date("Y-m-d H:i:s");//获取系统时间
 		$now['rec_useraent'] = GetBrowser();//获取浏览器信息
-		Db::table('unuser')->where('user_id', $has['user_id'])->update($now);
+		Db::table('un_user')->where('user_id', $has['user_id'])->update($now);
 
 	
     	if($has['role_id'] == 1){
-            $this->redirect(url('index/admin'));
+            $this->redirect(url('index/main'));
         }
         else if($has['role_id'] == 2){
-			$userinfo = db('unuser,unteacher')->where('unuser.user_name = unteacher.tea_rollno')->find();
+			$userinfo = db('un_user,un_teacher')->where('un_user.user_name = un_teacher.tea_rollno')->find();
 			cookie('tea_id', $userinfo['tea_id'], 3600);// 一个小时有效期
 			cookie('tea_name', $userinfo['tea_name'], 3600);
-            $this->redirect(url('index/teacher'));
+            $this->redirect(url('index/main'));
         }
         else{
-			$userinfo = db('unuser,unstudent')->where('unuser.user_name = unstudent.stu_rollno')->find();
+			$userinfo = db('un_user,un_student')->where('un_user.user_name = un_student.stu_rollno')->find();
 			// halt($userinfo);
 			cookie('stu_id', $userinfo['stu_id'], 3600);// 一个小时有效期
 			cookie('stu_name', $userinfo['stu_name'], 3600);
-			$this->redirect(url('index/student'));
+			$this->redirect(url('index/main'));
         }
         
         
     }
      
     // 退出登录
-    public function loginOut()
+    public function logOut()
     {
     	cookie('user_id', null);
     	cookie('user_name', null);
@@ -166,10 +167,7 @@ class Index extends Controller
     	$this->redirect(url('index/login'));
 	}
 
-	public function admin()
-    {
-        return $this->fetch();
-	} 
+	
 	public function student()
     {
         return $this->fetch();
@@ -177,7 +175,23 @@ class Index extends Controller
 	public function teacher()
 	{
 		return $this->fetch();
-	}
+    }
+    
+    public function left()
+    {
+        return $this->fetch();
+    } 
+    public function top(){
+    	return view();
+    }
+    public function sy(){
+        $this->assign('time',date("Y-m-d",time()));
+        $this->assign('php_uname',php_uname());
+        return view();
+    }
+    public function main(){
+    	return view();
+    }
 
 	public function code(){ //生成验证码
 		$code=array("width"=>50,"height"=>25,	"len"=>4,			 

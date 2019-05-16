@@ -5,7 +5,7 @@ CREATE DATABASE IF NOT EXISTS University DEFAULT CHARACTER SET utf8;
 USE University;
 
 /*学院表*/ /*学院ID(主键) 学院名称 学院描述 学院主管*/
-CREATE TABLE unacademy
+CREATE TABLE un_academy
 (
 academy_id int NOT NULL AUTO_INCREMENT,
 academy_name varchar(50) NOT NULL,
@@ -16,7 +16,7 @@ PRIMARY KEY(academy_id)
 
 
 /*专业表*/ /*专业ID(主键) 专业名称 专业描述 学院ID(外键)*/
-CREATE TABLE unmajor
+CREATE TABLE un_major
 (
 major_id int NOT NULL AUTO_INCREMENT,
 major_name varchar(50) NOT NULL,
@@ -24,13 +24,13 @@ major_desc varchar(200),
 academy_id int NOT NULL,
 course_ids varchar (50),
 PRIMARY KEY (major_id),
-FOREIGN KEY (academy_id) REFERENCES unacademy (academy_id)
+FOREIGN KEY (academy_id) REFERENCES un_academy (academy_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
 /*课程表*/ /*课程ID(主键) 课程名称 专业描述 是否必修课 是否公选课 学分 课时 专业ID(外键) 教材封面*/
-CREATE TABLE uncourse
+CREATE TABLE un_course
 (
 course_id int auto_increment,
 course_name varchar(50) NOT NULL,
@@ -42,13 +42,13 @@ course_hour varchar(50) NOT NULL,
 major_id int NOT NULL,
 course_cover varchar(200),
 primary key(course_id),
-FOREIGN KEY (major_id) REFERENCES unmajor (major_id)
+FOREIGN KEY (major_id) REFERENCES un_major (major_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-select * from uncourse;
+select * from un_course;
 
 /*教师表*/ /*教师ID(主键) 教师名称 教师职称 专业ID(外键)，课程ID(教授课程 外键) 教师介绍 教师照片*/
-CREATE TABLE unteacher
+CREATE TABLE un_teacher
 (
 tea_id int auto_increment,
 tea_name varchar(50) NOT NULL,
@@ -59,28 +59,28 @@ course_id int NOT NULL,
 tea_desc varchar(50),
 tea_photo varchar(200),
 primary key(tea_id),
-FOREIGN KEY (academy_id) REFERENCES unacademy (academy_id),
-FOREIGN KEY (course_id) REFERENCES uncourse (course_id)
+FOREIGN KEY (academy_id) REFERENCES un_academy (academy_id),
+FOREIGN KEY (course_id) REFERENCES un_course (course_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-select * from unteacher;
+select * from un_teacher;
 
 
 /*班级表*/ /*班级ID(主键) 班级名称 专业ID(外键)*/
-CREATE TABLE unclass
+CREATE TABLE un_class
 (
 class_id int auto_increment,
 class_name varchar(50) NOT NULL,
 major_id int NOT NULL,
 primary key(class_id),
-FOREIGN KEY (major_id) REFERENCES unmajor (major_id)
+FOREIGN KEY (major_id) REFERENCES un_major (major_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-select * from unclass;
+select * from un_class;
 
 
 /*学生表*/ /*学生ID(主键) 学生学号 学生姓名 班级ID(外键) 学生生日 学生住址*/
-CREATE TABLE unstudent
+CREATE TABLE un_student
 (
 stu_id int auto_increment,
 stu_rollno varchar(50) NOT NULL,
@@ -92,14 +92,14 @@ stu_address varchar(200),
 academy_id int NOT NULL,
 major_id int NOT NULL,
 primary key(stu_id),
-FOREIGN KEY (academy_id) REFERENCES unacademy (academy_id),
-FOREIGN KEY (major_id) REFERENCES unmajor (major_id)
+FOREIGN KEY (academy_id) REFERENCES un_academy (academy_id),
+FOREIGN KEY (major_id) REFERENCES un_major (major_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
 /*角色表*/ /*角色ID(主键) 角色名称 角色介绍*/
-CREATE TABLE unrole
+CREATE TABLE un_role
 (
 role_id int auto_increment,
 role_name varchar(50) NOT NULL,
@@ -107,12 +107,12 @@ role_desc varchar(50),
 primary key(role_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-select * from unrole;
+select * from un_role;
 
 
 
 /*用户表*/ /*用户ID(主键) 用户姓名 用户密码 用户头像 角色ID(外键) 最近登录时间 最近登录地址 所用的浏览器UserAent*/
-CREATE TABLE unuser
+CREATE TABLE un_user
 (
 user_id int auto_increment,
 user_name varchar(50) NOT NULL,
@@ -126,11 +126,11 @@ time_last_error varchar(200),
 rec_address varchar(200),
 rec_useraent varchar(200),
 primary key(user_id),
-FOREIGN KEY (role_id) REFERENCES unrole (role_id)
+FOREIGN KEY (role_id) REFERENCES un_role (role_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-select * from unuser;
+select * from un_user;
 
 
 
