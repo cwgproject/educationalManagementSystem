@@ -5,7 +5,7 @@ use think\Model;
 
 class Major extends Model
 {
-    protected $table = 'unmajor';
+    protected $table = 'un_major';
 
     public function Academy()
     {

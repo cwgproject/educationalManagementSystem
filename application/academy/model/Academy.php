@@ -5,5 +5,5 @@ use think\Model;
 
 class Academy extends Model
 {
-    protected $table = 'unacademy';
+    protected $table = 'un_academy';
 }

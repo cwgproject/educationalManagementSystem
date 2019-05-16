@@ -17,10 +17,10 @@
         <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
         <script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-         <link rel="stylesheet" href="theme.css" type="text/css"> 
+         <!-- <link rel="stylesheet" href="theme.css" type="text/css">  -->
 </head>
 <body>
-        {include file="Course/heads"/}
+
     <div class="container" style=" height:452px;">
         <div class="row">
             <div class="offset-md-1 col-md-10">
@@ -50,10 +50,11 @@
                         {/volist} 
                         </tbody>
                     </table>
+                    {$list->render()|raw}
             </div>
         </div>
     </div>
-    {include file="Course/footer"/}
+
 </body>
 </html>
 
