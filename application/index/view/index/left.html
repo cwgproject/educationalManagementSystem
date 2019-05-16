@@ -45,8 +45,12 @@
 		</dl>
 	
 		<dl class="channel">
-			<dt onClick="changeImage()">查看成绩<img src="__STATIC__/images/left/select_xl01.png"></dt>			
-			<dd><a href="{:url('Student/check_grade')}" target="rightFrame">成绩查询</a></dd>
+			<dt onClick="changeImage()">查看信息<img src="__STATIC__/images/left/select_xl01.png"></dt>			
+			<dd><a href="{:url('Student/check_grade')}" target="rightFrame">教师信息</a></dd>
+			<dd><a href="{:url('Student/check_grade')}" target="rightFrame">学生信息</a></dd>
+			<dd><a href="{:url('Student/check_grade')}" target="rightFrame">学院信息</a></dd>
+			<dd><a href="{:url('Student/check_grade')}" target="rightFrame">专业信息</a></dd>
+			<dd><a href="{:url('Student/check_grade')}" target="rightFrame">课程信息</a></dd>
 		</dl>
 		<dl class="channel">
 			<dt onClick="changeImage()">选课<img src="__STATIC__/images/left/select_xl01.png"></dt>
@@ -85,7 +89,7 @@
         {case 3}
 		<dl class="custom">
 			<dt onClick="changeImage()">个人信息管理<img src="__STATIC__/images/left/select_xl01.png"></dt>
-			<dd class="first_dd"><a href="{:url('Student/main')}" target="rightFrame">个人信息</a></dd>
+			<dd class="first_dd"><a href="http://localhost/educationalManagementSystem/public/student/Person/person?stu_id={$_COOKIE['stu_id']}" target="rightFrame">个人信息</a></dd>
 		</dl>
 	
 		<dl class="channel">

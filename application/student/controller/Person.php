@@ -7,9 +7,9 @@ class person extends Controller
 {
     public function person($stu_id=null)
     {
-        $list = Db::table('unstudent')
+        $list = Db::table('un_student')
         ->field('stu_name,stu_rollno,stu_sex,stu_birth,stu_address')
-        ->where('stu_id', "$stu_id")
+        ->where('stu_id', $stu_id)
         ->find();
         $this->assign("stu",$list);
         return $this->fetch();

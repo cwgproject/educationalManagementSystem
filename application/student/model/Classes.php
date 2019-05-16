@@ -5,7 +5,7 @@ use think\Model;
 
 class Classes extends Model
 {
-    protected $table = 'unclass';
+    protected $table = 'un_class';
 
     public function Student() {
 
