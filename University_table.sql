@@ -132,6 +132,17 @@ FOREIGN KEY (role_id) REFERENCES un_role (role_id)
 
 select * from un_user;
 
+CREATE TABLE un_mark 
+(
+mark_id int auto_increment,
+stu_id int NOT NULL,
+course_id int NOT NULL,
+mark varchar(200) NOT NULL,	
+primary key(mark_id),
+FOREIGN KEY (stu_id) REFERENCES un_student (stu_id),
+FOREIGN KEY (course_id) REFERENCES un_course (course_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 
