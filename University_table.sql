@@ -15,7 +15,7 @@ PRIMARY KEY(academy_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-/*专业表*/ /*专业ID(主键) 专业名称 专业描述 学院ID(外键)*/
+/*专业表*/ /*专业ID(主键) 专业名称 专业描述 学院ID(外键) 主修课程*/
 CREATE TABLE un_major
 (
 major_id int NOT NULL AUTO_INCREMENT,
