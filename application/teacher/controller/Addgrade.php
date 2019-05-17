@@ -1,14 +1,14 @@
 <?php
 namespace app\teacher\controller;
 use think\Loader;
-use think\Session;
+use think\Cookie;
 use think\Db;
 use think\Controller;
 
 use PHPExcel;
 use PHPExcel_IOFactory;
 use PHPExcel_Cell;
-class addgrade{
+class addgrade extends Controller{
     
     public function addgrade(){
         //$id=Cookie::get('tea_id');
