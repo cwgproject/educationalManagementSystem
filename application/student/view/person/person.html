@@ -47,6 +47,16 @@
                     <td>住址</td>
                     <td>{$stu.stu_address}</td>
                 </tr>
+                {if $_COOKIE['role_id'] == 1}
+                <tr>     
+                    <td>  </td>                       
+                    <td>                            
+                            <button>
+                                <a  href="http://localhost/educationalManagementSystem/public/update/student/updateInfo?stu_id={$stu.stu_id}" >修改个人信息</a>
+                            </button>
+                    </td>
+                </tr>
+                {/if}
             </table>
             </div>
         </div>
