@@ -1,6 +1,6 @@
 <?php
 namespace app\update\controller;
-use think\Cookie;
+use think\facade\Cookie;
 use think\Db;
 use think\Controller;
 
