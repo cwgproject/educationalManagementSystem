@@ -143,6 +143,18 @@ FOREIGN KEY (stu_id) REFERENCES un_student (stu_id),
 FOREIGN KEY (course_id) REFERENCES un_course (course_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+create table if not exists un_student_course 
+(	
+    stu_id int(12) not null , -- 学生id
+    tea_id int(12) not null, -- 老师id
+    course_id int(8) not null, -- 课程id 
+    judge int(10), -- 学生评教分数
+    foreign key (tea_id) references un_student (stu_id)  ON DELETE CASCADE ON UPDATE CASCADE,
+    foreign key (stu_id) references un_teacher (tea_id)  ON DELETE CASCADE ON UPDATE CASCADE,
+    foreign key (course_id) references un_course (course_id)  ON DELETE CASCADE ON UPDATE CASCADE,
+    constraint primary key (stu_id, tea_id, course_id) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 

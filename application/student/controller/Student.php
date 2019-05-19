@@ -3,14 +3,85 @@ namespace app\student\controller;
 
 use app\student\model\Student as StudentModel;
 use think\Controller;
+use think\facade\Cookie;
+use think\Db;
 
-class Student 
+class Student extends Controller
 {
 
     public function form()
     {
         $list = StudentModel::paginate(5);
         return view('form',['list'=>$list]);
+    }
+
+    public function chooseCourse(){//选课
+        $id=Cookie::get('stu_id');
+        if($this->request->isPost()){ // 实现修改
+            $addnew=input('post.addnew');
+            if ($addnew=="1" ){
+                $add_dat=array();
+                $add_dat['course_id']=input('courseid');
+                $add_dat['tea_id']=input('teacherid');
+                $add_dat['stu_id'] = $id;
+                if ($add_dat['course_id']!="" && $add_dat['tea_id']!=""){//可能有误?
+                    $where1['tea_id'] = $add_dat['tea_id'];  $rs1=Db::table('un_teacher')->where($where1)->select();
+                    $where2['course_id'] = $add_dat['course_id'];  $rs2=Db::table('un_course')->where($where2)->select();
+                    dump($rs1); //查看数组                    
+                    if($rs1[0]['tea_id'] != null && $rs2[0]['course_id'] != null){
+                        $chooseCourse = [];
+                        $chooseCourse['tea_id'] = $add_dat['tea_id'];
+                        $chooseCourse['course_id'] = $add_dat['course_id'];
+                        $res_dat=db('un_student_course')->where($chooseCourse)->find();
+                        if($res_dat){
+                            $this->error('对不起，您已选择过此课，请重试!','un_student_course');
+                        }else{
+                            $dat=db('un_student_course')->insert($add_dat);
+                            $this->success('操作成功');
+                        }
+                    }else{
+                        $this->error('输入的教师或课程不存在！','un_student_course');
+                        die;
+                    }
+                    
+                }else{
+                    $this->error('请输入完整！','un_student_course');
+                    die;
+                }
+            }
+        }
+        $stu = [];
+        $stu['stu_id'] = $id;
+        $res = [];
+        $res = Db::table('un_student_course')
+        ->alias('sc')
+        ->join('un_teacher t','t.tea_id = sc.tea_id')
+        ->join('un_course c','c.course_id = sc.course_id')
+        ->field('t.tea_id teacherid, t.tea_name teachername, c.course_id courseid, c.course_name coursename, c.course_score score, c.course_hour subtime') 
+        ->where($stu)->select();
+        // dump($res); //查看数组
+        $course=db('un_course')->select();
+        $this->assign('res',$res);
+        $this->assign('course',$course);
+        // dump($sub); //查看数组
+        return view();
+    }
+
+    public function choose_listxls(){
+        header("Content-Type: application/vnd.ms-execl");   
+        header("Content-Disposition: attachment; filename=课程表信息.xls");   
+        header("Pragma: no-cache");   
+        header("Expires: 0");
+        $data = [];
+        $data = Db::table('un_student_course')
+        ->alias('sc')
+        ->join('un_teacher t','t.tea_id = sc.tea_id')
+        ->join('un_course c','c.course_id = sc.course_id')
+        ->field('t.tea_id teacherid, t.tea_name teachername, c.course_id courseid, c.course_name coursename, c.course_score score, c.course_hour subtime')  
+        ->order('course_id desc')->select();
+        // $data=db('kehuxinxi')->order('id desc')->select();
+        $this->assign('dat',$data);
+        return view();
     }
 
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>授课表信息</title>
+</head>
+<body>
+    <p>可选课程信息：</p>
+<table width="100%" border="1" align="center" cellpadding="3" cellspacing="1" bordercolor="#00FFFF" style="border-collapse:collapse">  
+    <tr>
+        <td width="25" bgcolor="#CCFFFF">课程号</td>
+        <td bgcolor='#CCFFFF'>课程名称</td>
+        <td bgcolor='#CCFFFF'>教师号</td>
+        <td bgcolor='#CCFFFF'>教师名称</td>
+        <td bgcolor='#CCFFFF'>学分</td>
+        <td bgcolor='#CCFFFF'>学时</td>            
+        
+        
+    </tr>
+  {volist name="dat" id='d' key='k'}
+            <tr>
+                <td>{$d.courseid}</td>
+                <td>{$d.coursename}</td>
+                <td>{$d.teacherid}</td>
+                <td>{$d.teachername}</td>
+                <td>{$d.score}</td>
+                <td>{$d.subtime}</td>                                        
+            </tr>
+        {/volist}
+</table>
+
+</body>
+</html>
