@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>评价教师</title>
+    <script type="text/javascript" src="__STATIC__/js/My97DatePicker/WdatePicker.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="__STATIC__/images/css.css" type="text/css">
+</head>
+<body>            
+    <p>评教：</p>
+    <form id="form1" name="form1" method="post" action="">
+        <table width="100%" border="1" align="center" cellpadding="3" cellspacing="1" bordercolor="#00FFFF" style="border-collapse:collapse">             
+            
+            <tr><td>课程号：</td><td><input name='courseid' id='courseid' ></td></tr>
+            <tr><td>教师号：</td><td><input name='teacherid' id='teacherid' ></td></tr>
+            <tr>
+                <td>评价</td>
+                <td>
+                    <input type="radio" name="judge" value="100" />优秀
+                    <input type="radio" checked name="judge" value="75" />良好
+                    <input type="radio" name="judge" value="50" />一般
+                    <input type="radio" name="judge" value="25" />极差
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><input name="addnew" type="hidden" id="addnew" value="1" />
+                <input type="submit" name="Submit" value="评价" style='border:solid 1px #000000; color:#666666' />
+                <input type="reset" name="Submit2" value="重置" style='border:solid 1px #000000; color:#666666' /></td>
+            </tr>
+        </table>
+    </form>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <table width="100%" border="1" align="center" cellpadding="3" cellspacing="1" bordercolor="#00FFFF" style="border-collapse:collapse">  
+        <header>评价课程：</header>
+        <tr>
+            <td  bgcolor="#CCFFFF">课程号</td>
+            <td bgcolor='#CCFFFF'>课程名称</td>
+            <td bgcolor='#CCFFFF'>教师号</td>
+            <td bgcolor='#CCFFFF'>教师名</td>
+            <td bgcolor='#CCFFFF'>评价</td>
+            
+            
+        </tr>
+        {volist name="res" id='d' key='k'}
+            <tr>
+                <td>{$d.courseid} </td>
+                <td>{$d.coursename}</td>                
+                <td>{$d.teacherid} </td>
+                <td>{$d.teachername}</td>
+                <td><font color="#FF0000"><b>{$d.judge}</b></font></td>    
+                <!-- <td>
+                    <input type="radio" name="judge{$k}" value="100" />优秀
+                    <input type="radio" checked name="judge{$k}" value="75" />良好
+                    <input type="radio" name="judge{$k}" value="50" />一般
+                    <input type="radio" name="judge{$k}" value="25" />极差
+                </td>                                      -->
+            </tr>
+        {/volist}
+        <tr>
+            <td>&nbsp;</td>
+           
+        </tr>
+    </table>
+  
+</body>
+</html>

@@ -84,6 +84,53 @@ class Student extends Controller
         return view();
     }
 
+    public function judgeCourse(){ //评教
+        $id=Cookie::get('stu_id');
+        
+        if($this->request->isPost()){ // 实现修改
+            $addnew=input('post.addnew');
+            if ($addnew=="1" ){
+                $add_dat=array();
+                $add_dat['course_id']=input('courseid');
+                $add_dat['tea_id']=input('teacherid');
+                $add_dat['judge']=input('judge');
+                $add_dat['stu_id'] = $id;
+                if ($add_dat['course_id']!="" && $add_dat['tea_id']!=""){//可能有误?
+                    $where1['tea_id'] = $add_dat['tea_id'];  $rs1=Db::table('un_teacher')->where($where1)->select();
+                    $where2['course_id'] = $add_dat['course_id'];  $rs2=Db::table('un_course')->where($where2)->select();
+                    dump($rs1); //查看数组                    
+                    if($rs1[0]['tea_id'] != null && $rs2[0]['course_id'] != null){
+                        $chooseCourse = [];
+                        $chooseCourse['tea_id'] = $add_dat['tea_id'];
+                        $chooseCourse['course_id'] = $add_dat['course_id'];
+                        $chooseCourse['stu_id'] = $add_dat['stu_id'];                        
+                            Db::table('un_student_course')->where($chooseCourse)->update(['judge' => $add_dat['judge']]);
+                            $this->success('操作成功');
+                        
+                    }else{
+                        $this->error('输入的教师或课程不存在！','judge_course');
+                        die;
+                    }
+                    
+                }else{
+                    $this->error('请输入完整！','judge_course');
+                    die;
+                }
+            }
+        }
+        $stu = [];
+        $stu['stu_id'] = $id;
+        $res = [];
+        $res = Db::table('un_student_course')
+        ->alias('sc')
+        ->join('un_teacher t','t.tea_id = sc.tea_id')
+        ->join('un_course c','c.course_id = sc.course_id')
+        ->field('t.tea_id teacherid, t.tea_name teachername, c.course_id courseid, c.course_name coursename, sc.judge judge') 
+        ->where($stu)->select();      
+        $this->assign('res',$res);
+        return view();
+    }
+
 
 
 }
