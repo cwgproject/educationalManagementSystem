@@ -34,18 +34,18 @@ class Student extends Controller
                         $chooseCourse['course_id'] = $add_dat['course_id'];
                         $res_dat=db('un_student_course')->where($chooseCourse)->find();
                         if($res_dat){
-                            $this->error('对不起，您已选择过此课，请重试!','un_student_course');
+                            $this->error('对不起，您已选择过此课，请重试!','chooseCourse');
                         }else{
                             $dat=db('un_student_course')->insert($add_dat);
                             $this->success('操作成功');
                         }
                     }else{
-                        $this->error('输入的教师或课程不存在！','un_student_course');
+                        $this->error('输入的教师或课程不存在！','chooseCourse');
                         die;
                     }
                     
                 }else{
-                    $this->error('请输入完整！','un_student_course');
+                    $this->error('请输入完整！','chooseCourse');
                     die;
                 }
             }
@@ -108,12 +108,12 @@ class Student extends Controller
                             $this->success('操作成功');
                         
                     }else{
-                        $this->error('输入的教师或课程不存在！','judge_course');
+                        $this->error('输入的教师或课程不存在！','judgeCourse');
                         die;
                     }
                     
                 }else{
-                    $this->error('请输入完整！','judge_course');
+                    $this->error('请输入完整！','judgeCourse');
                     die;
                 }
             }
