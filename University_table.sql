@@ -1,8 +1,8 @@
 
-drop database University;
+drop database Universitym;
 
-CREATE DATABASE IF NOT EXISTS University DEFAULT CHARACTER SET utf8;
-USE University;
+CREATE DATABASE IF NOT EXISTS Universitym DEFAULT CHARACTER SET utf8;
+USE Universitym;
 
 /*学院表*/ /*学院ID(主键) 学院名称 学院描述 学院主管*/
 CREATE TABLE un_academy
@@ -54,6 +54,7 @@ tea_id int auto_increment,
 tea_name varchar(50),
 tea_rollno varchar(50) NOT NULL,
 tea_title varchar(50),
+tea_sex varchar(50),
 academy_id int,
 course_id int,
 tea_desc varchar(50),
