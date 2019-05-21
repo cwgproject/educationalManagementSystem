@@ -51,11 +51,11 @@ select * from un_course;
 CREATE TABLE un_teacher
 (
 tea_id int auto_increment,
-tea_name varchar(50) NOT NULL,
+tea_name varchar(50),
 tea_rollno varchar(50) NOT NULL,
-tea_title varchar(50) NOT NULL,
-academy_id int NOT NULL,
-course_id int NOT NULL,
+tea_title varchar(50),
+academy_id int,
+course_id int,
 tea_desc varchar(50),
 tea_photo varchar(200),
 primary key(tea_id),
@@ -118,12 +118,13 @@ user_id int auto_increment,
 user_name varchar(50) NOT NULL,
 user_password varchar(50) NOT NULL,
 user_photo varchar(200),
-user_count int,
-user_status int,
+user_count int DEFAULT '3',
+user_status DEFAULT '0' int,
 role_id int NOT NULL,
 rec_time varchar(200),
 time_last_error varchar(200), 
 rec_address varchar(200),
+register_date varchar(200),
 rec_useraent varchar(200),
 primary key(user_id),
 FOREIGN KEY (role_id) REFERENCES un_role (role_id)
@@ -164,6 +165,14 @@ create table if not exists un_teacher_course
     constraint primary key(tea_id, course_id),
 	foreign key (tea_id) references un_teacher (tea_id)  ON DELETE CASCADE ON UPDATE CASCADE,
     foreign key (course_id) references un_course (course_id)  ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 权限表
+create table if not exists un_authority
+(
+    auth_name varchar(20) not null,
+    auth_state boolean not null,
+    constraint primary key (auth_name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
