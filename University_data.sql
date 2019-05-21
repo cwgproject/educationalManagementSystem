@@ -1,6 +1,7 @@
 insert into un_role values(1,'管理员','管理一切后台信息');
 insert into un_role values(2,'教师','发布作业和考试并可以查看学生成绩');
 insert into un_role values(3,'学生','考试写作业查看成绩');
+insert into un_role values(4,'超级管理员','牛笔！！');
 
 
 insert into un_academy values(1,'经济学院','学院科研体系完善 师资力量雄厚','Tony Stark');
@@ -120,6 +121,7 @@ insert into un_user values(5,'1001','202cb962ac59075b964b07152d234b70','',3,0,2,
 
 insert into un_user values(6,'201540704102','202cb962ac59075b964b07152d234b70','',3,0,3,'','','','');
 insert into un_user values(7,'201540704602','202cb962ac59075b964b07152d234b70','',3,0,3,'','','','');
+insert into un_user values(8,'Boss','202cb962ac59075b964b07152d234b70','',3,0,4,'','','','');
 
 
 insert into un_authority(auth_name, auth_state) values('up_info', true);

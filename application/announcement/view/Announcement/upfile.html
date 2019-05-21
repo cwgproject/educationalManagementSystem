@@ -1,0 +1,22 @@
+<html> 
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+	<title>文件上传</title>
+	<link rel="stylesheet" href="__STATIC__/Images/CssAdmin.css">
+</head>
+<body>
+	<form enctype="multipart/form-data" action="{:url('upfile',array('Result'=>$Result))}" method=post>  
+		<input name=upfile type=file class="button" size=40> 
+		<input type=submit class="button" value='上传文件'>  
+	</form>  
+</body>
+<script language="JavaScript"> 
+	function CopyPath(FilePath,FileSize)
+	{						
+		window.opener.document.form1.{$Result}.value=FilePath;	//这里没错
+		window.opener=null;
+		window.close();
+	}
+</script> 
+</html>
+

@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>公告信息</title>
+    <script type="text/javascript" src="__STATIC__/js/My97DatePicker/WdatePicker.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="__STATIC__/images/css.css" type="text/css">
+</head>
+<body>
+    <p>已有公告信息列表：</p>
+    <form id="form1" name="form1" method="post" action="">
+        搜索: 公告编号：<input name="id" type="text" id="id" style='border:solid 1px #000000; color:#666666;width:80px' /> 公告名称：<input name="name" type="text" id="name" style='border:solid 1px #000000; color:#666666;width:80px' /> 排序
+        <select name="paixu" id="paixu">
+            <option value="addtime">添加时间</option>
+        </select>
+        <select name="px" id="px">
+            <option value="desc">降序</option>
+            <option value="asc">升序</option>
+        </select>
+        <input type="submit" name="Submit" value="查找" style='border:solid 1px #000000; color:#666666' />
+    </form>
+    <table width="100%" border="1" align="center" cellpadding="3" cellspacing="1" bordercolor="#00FFFF" style="border-collapse:collapse">  
+        <tr>
+            <td width="25" bgcolor="#CCFFFF">序号</td>
+            <td bgcolor='#CCFFFF'>公告编号</td>
+            <td bgcolor='#CCFFFF'>公告名称</td>
+            <td bgcolor='#CCFFFF'>发布日期</td>
+            <td bgcolor='#CCFFFF'>内容</td>
+                        
+            
+            <td width="120" align="center" bgcolor="#CCFFFF">操作</td>
+        </tr>
+        {volist name="data['list']" id='d' key='k'}
+            <tr>
+                <td width="25">{$k}</td>
+                <td>{$d.id}</td>
+                <td>{$d.name}</td>
+                <td>{$d.announceDate}</td>
+                <td>{$d.content}</td>                            
+            
+                <td width="120" align="center"><a href="{:url('del',array('id'=>$d['id'],'tablename'=>'Announcement','url'=>'announce_list'))}" onclick="return confirm('真的要删除？')">删除</a>  <a href="{:url('announce_detail',array('id'=>$d['id']))}">详细</a> </td>
+            </tr>
+        {/volist}
+    </table>
+    <p>以上数据共{$data.count}条, 
+        <input type="button" name="Submit2" onclick="javascript:window.print();" value="打印本页" style='border:solid 1px #000000; color:#666666' /> 
+    </p>
+    <p align="center"><a href="{:url('announce_list',array('pagecurrent'=>1))}">首页</a>, <a href="{:url('announce_list',array('pagecurrent'=>$data.pagecurrent-1))}">前一页</a> ,<a href="{:url('announce_list',array('pagecurrent'=>$data.pagecurrent+1))}">后一页</a>, <a href="{:url('announce_list',array('pagecurrent'=>$data.pagecount))}">末页</a>, 当前第{$data.pagecurrent}页,共{$data.pagecount}页 </p>
+</body>
+</html>
+

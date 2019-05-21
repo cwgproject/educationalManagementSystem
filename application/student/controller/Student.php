@@ -85,6 +85,23 @@ class Student extends Controller
         return view();
     }
 
+    public function required_course_listxls(){
+        header("Content-Type: application/vnd.ms-execl");   
+        header("Content-Disposition: attachment; filename=必修课程表信息.xls");   
+        header("Pragma: no-cache");   
+        header("Expires: 0");
+        $data = [];
+        $data = Db::table('un_student')
+        ->alias('s')
+        ->join('un_major_course mc','mc.major_id = s.major_id')
+        ->join('un_course c','c.course_id = mc.course_id')
+        ->field('c.course_id as courseid, c.course_name as coursename, c.course_score as score, c.course_hour as subtime') 
+        ->group("c.course_id")->order('c.course_id desc')->select(); 
+        dump($data); //查看数组       
+        $this->assign('dat',$data);
+        return view();
+    }
+
     public function judgeCourse(){ //评教
         $id=Cookie::get('stu_id');
         
@@ -129,6 +146,23 @@ class Student extends Controller
         ->field('t.tea_id teacherid, t.tea_name teachername, c.course_id courseid, c.course_name coursename, sc.judge judge') 
         ->where($stu)->select();      
         $this->assign('res',$res);
+        return view();
+    }
+
+    public function check_grade(){ //查看成绩
+        $id=Cookie::get('stu_id');
+        $stu = [];
+        $stu['stu_id'] = $id;
+        $res = [];
+        $res = Db::table('un_student_course')
+        ->alias('sc')
+        ->join('un_course c','c.course_id = sc.course_id')
+        ->field('c.course_id courseid, c.course_name coursename, c.course_score score, c.course_hour subtime, sc.grade grade') 
+        ->where($stu)->select();
+        // dump($res); //查看数组
+        $course=db('un_course')->select();
+        $this->assign('res',$res);
+        // dump($sub); //查看数组
         return view();
     }
 

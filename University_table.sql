@@ -187,6 +187,15 @@ create table if not exists un_major_course(
     index(course_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- 公告表      有待拓展：拓展属性：文件和文本文字
+create table if not exists Announcement ( 
+	id int(8) not null, -- 公告编号
+    name varchar(50) not null, -- 公告名称
+    announceDate date not null, -- 发布日期	
+    content text,				-- 内容 
+    fileRote varchar(70), 		-- 文件路径	
+    PRIMARY KEY ( id )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 

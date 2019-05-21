@@ -24,7 +24,7 @@
                         <table width="100%" height="85" border="0">
                             <tr>
                                 <td align="right">
-                                    <font color="#FFFFFF" style="font-size:12px">欢迎你！{switch $Think.cookie.role_id}{case 2}{$Think.cookie.tea_name}{/case}{case 3}{$Think.cookie.stu_name}{/case}{/switch}&nbsp;&nbsp;权限：{switch $Think.cookie.role_id}{case 2}教师{/case}{case 3}学生{/case}{/switch}&nbsp;&nbsp;&nbsp;&nbsp;</font>
+                                    <font color="#FFFFFF" style="font-size:12px">欢迎你！{switch $Think.cookie.role_id}{case 1}{$Think.cookie.tea_name}{/case}{case 2}{$Think.cookie.tea_name}{/case}{case 3}{$Think.cookie.stu_name}{/case}{case 4}Boss{/case}{/switch}&nbsp;&nbsp;权限：{switch $Think.cookie.role_id}{case 1}管理员{/case}{case 2}教师{/case}{case 3}学生{/case}{case 4}超级管理员{/case}{/switch}&nbsp;&nbsp;&nbsp;&nbsp;</font>
                                     <a href="{:url('index/logOut')}" target="_parent">
                                         <font color="#FFFFFF">退出</font>
                                     </a>

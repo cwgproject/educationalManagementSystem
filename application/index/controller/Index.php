@@ -139,6 +139,10 @@ class Index extends Controller
 
 	
     	if($has['role_id'] == 1){
+			$userinfo = db('un_user,un_teacher')
+			->where('un_user.user_name = un_teacher.tea_rollno')->where('tea_rollno', $param['userid'])->find();
+			cookie('tea_id', $userinfo['tea_id'], 3600);// 一个小时有效期
+			cookie('tea_name', $userinfo['tea_name'], 3600);
             $this->redirect(url('index/main'));
         }
         else if($has['role_id'] == 2){
