@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>修改个人信息</title>
+
+    <link rel="stylesheet" href="__STATIC__/images/css.css" type="text/css">
+    <script type="text/javascript" src="__STATIC__/js/My97DatePicker/WdatePicker.js" charset="gb2312"></script>
+</head>
+<script language="javascript">
+	function OpenScript(url,width,height){
+        var win = window.open(url,"SelectToSort",'width=' + width + ',height=' + height + ',resizable=1,scrollbars=yes,menubar=no,status=yes' );
+    }
+	function OpenDialog(sURL, iWidth, iHeight){
+        var oDialog = window.open(sURL, "_EditorDialog", "width=" + iWidth.toString() + ",height=" + iHeight.toString() + ",resizable=no,left=0,top=0,scrollbars=no,status=no,titlebar=no,toolbar=no,menubar=no,location=no");
+        oDialog.focus();
+    }
+	
+</script>
+<body>
+    <p>修改信息：</p>
+    <form id="form1" name="form1" method="post" action="">
+        <table width="100%" border="1" align="center" cellpadding="3" cellspacing="1" bordercolor="#00FFFF" style="border-collapse:collapse">             
+            <tr><td>姓名：</td><td><input name='name' type='text' id='name' value='{$dat.tea_name}' /></td></tr>            
+            <tr><td>联系方式：</td><td><input name='tel' type='text' id='tel' value='{$dat.tea_tel}' /></td></tr>
+            <tr><td>职称：</td><td><input name='position' type='text' id='position' value='{$dat.tea_title}' size='50'   />&nbsp;</td></tr>                        
+            <tr><td>性别：_____当前值：{$dat.tea_sex}</td><td><select name='sex' id='sex' >                
+                <option value="男">男</option>
+                <option value="女">女</option>
+            </select></td></tr>
+            <tr><td>所属院系：_____当前：{$Empaca.academy_name}</td><td><select name='academy' id='academy' >                
+                {volist name='aca' id='d1'}
+                    <option value="{$d1.academy_id}">{$d1.academy_name}</option>
+                {/volist}
+            </select></td></tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><input name="addnew" type="hidden" id="addnew" value="1" />
+                <input type="submit" name="Submit" value="修改" style='border:solid 1px #000000; color:#666666' />
+                <input type="reset" name="Submit2" value="重置" style='border:solid 1px #000000; color:#666666' /></td>
+            </tr>
+        </table>
+    </form>
+    <p>&nbsp;</p>
+</body>
+</html>
+
+<!-- <tr><td>：</td><td><textarea name='kehubeizhu' cols='50' rows='8' id='kehubeizhu'></textarea></td></tr> -->
+<!-- <tr><td>性别：</td><td><select name='xingbie' id='xingbie'><option value="男">男</option><option value="女">女</option></select></td></tr><script language="javascript">document.form1.xingbie.value='';</script> -->

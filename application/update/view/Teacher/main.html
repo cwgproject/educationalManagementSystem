@@ -1,0 +1,30 @@
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>教师主界面</title>
+    </head>
+    <body>             
+                    <table width="90%" border="1" align="center" cellpadding="3" cellspacing="1" bordercolor="#00FFFF" style="border-collapse:collapse"> 
+                            <tr>
+                                <td width='11%' height=44>编号：</td><td width='39%'>{$res[0]['id']}</td></tr><tr>
+                                <td width='11%' height=44>姓名：</td><td width='39%'>{$res[0]['name']}</td></tr><tr>
+                                <td width='11%' height=44>入职日期：</td><td width='39%'>{$res[0]['rdate']}</td></tr><tr>
+                                <td width='11%' height=44>身份：</td><td width='39%'>{$res[0]['identity']}</td></tr><tr>
+                                <td width='11%' height=44>性别：</td><td width='39%'>{$res[0]['sex']}</td></tr><tr>                                                                                                                
+                                <td width='11%' height=44>职称：</td><td width='39%'>{$res[0]['position']}</td></tr><tr>
+                                <td width='11%' height=44>所属学院：</td><td width='39%'>{$res[0]['academy']}</td></tr><tr>
+                            </tr>
+                            <tr>
+                                <td colspan=1 align=center>                
+                                        <a  href="{:url('Teacher/update_info')}" >修改个人信息</a>         
+                                </td>
+                                <td colspan=1 align=center>                
+                                        <a   href="http://localhost/educationalManagementSystem/public/user/Register/mod" >修改密码</a>         
+                                </td>
+                                <td colspan=1 align=center>
+                                        <input type=button name=Submit5 value=返回 onClick="javascript:history.back()" style='border:solid 1px #000000; color:#666666'  /> 
+                                </td>
+                            </tr>
+                    </table>    
+            
+        
+    </body>

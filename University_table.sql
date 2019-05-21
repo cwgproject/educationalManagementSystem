@@ -133,22 +133,23 @@ FOREIGN KEY (role_id) REFERENCES un_role (role_id)
 
 select * from un_user;
 
-CREATE TABLE un_mark 
-(
-mark_id int auto_increment,
-stu_id int NOT NULL,
-course_id int NOT NULL,
-mark varchar(200) NOT NULL,	
-primary key(mark_id),
-FOREIGN KEY (stu_id) REFERENCES un_student (stu_id),
-FOREIGN KEY (course_id) REFERENCES un_course (course_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- CREATE TABLE un_mark 
+-- (
+-- mark_id int auto_increment,
+-- stu_id int NOT NULL,
+-- course_id int NOT NULL,
+-- mark varchar(200) NOT NULL,	
+-- primary key(mark_id),
+-- FOREIGN KEY (stu_id) REFERENCES un_student (stu_id),
+-- FOREIGN KEY (course_id) REFERENCES un_course (course_id)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 create table if not exists un_student_course 
 (	
     stu_id int(12) not null, -- 学生id
     tea_id int(12) not null, -- 老师id
     course_id int(8) not null, -- 课程id 
+    grade int(8),
     judge int(10), -- 学生评教分数
     foreign key (stu_id) references un_student (stu_id)  ON DELETE CASCADE ON UPDATE CASCADE,
     foreign key (tea_id) references un_teacher (tea_id)  ON DELETE CASCADE ON UPDATE CASCADE,
@@ -173,6 +174,17 @@ create table if not exists un_authority
     auth_name varchar(20) not null,
     auth_state boolean not null,
     constraint primary key (auth_name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 专业课程表  学生用 选择主修课*
+create table if not exists un_major_course( 
+	major_id int(8) not null,
+    course_id int(8) not null,
+    foreign key (major_id) references un_major (major_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    foreign key (course_id) references un_course (course_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    constraint primary key (major_id, course_id),
+    index(major_id),
+    index(course_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

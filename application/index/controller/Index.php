@@ -142,13 +142,15 @@ class Index extends Controller
             $this->redirect(url('index/main'));
         }
         else if($has['role_id'] == 2){
-			$userinfo = db('un_user,un_teacher')->where('un_user.user_name = un_teacher.tea_rollno')->find();
+			$userinfo = db('un_user,un_teacher')
+			->where('un_user.user_name = un_teacher.tea_rollno')->where('tea_rollno', $param['userid'])->find();
 			cookie('tea_id', $userinfo['tea_id'], 3600);// 一个小时有效期
 			cookie('tea_name', $userinfo['tea_name'], 3600);
             $this->redirect(url('index/main'));
         }
         else{
-			$userinfo = db('un_user,un_student')->where('un_user.user_name = un_student.stu_rollno')->find();
+			$userinfo = db('un_user,un_student')
+			->where('un_user.user_name = un_student.stu_rollno')->where('stu_rollno', $param['userid'])->find();
 			// halt($userinfo);
 			cookie('stu_id', $userinfo['stu_id'], 3600);// 一个小时有效期
 			cookie('stu_name', $userinfo['stu_name'], 3600);
@@ -161,6 +163,17 @@ class Index extends Controller
     // 退出登录
     public function logOut()
     {
+		if(cookie('role_id') == 1){
+            cookie('user_id', null);
+		}
+		else if(cookie('role_id') == 2){
+			cookie('tea_id', null);
+			cookie('tea_name', null);
+		}
+		else{
+			cookie('stu_id', null);
+			cookie('stu_name', null);
+        }
     	cookie('user_id', null);
     	cookie('user_name', null);
     	

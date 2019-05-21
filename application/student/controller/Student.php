@@ -30,6 +30,7 @@ class Student extends Controller
                     dump($rs1); //查看数组                    
                     if($rs1[0]['tea_id'] != null && $rs2[0]['course_id'] != null){
                         $chooseCourse = [];
+                        $chooseCourse['stu_id'] = $id;
                         $chooseCourse['tea_id'] = $add_dat['tea_id'];
                         $chooseCourse['course_id'] = $add_dat['course_id'];
                         $res_dat=db('un_student_course')->where($chooseCourse)->find();

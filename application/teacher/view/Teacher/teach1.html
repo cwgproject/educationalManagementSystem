@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>选择教授</title>
+
+    <link rel="stylesheet" href="__STATIC__/images/css.css" type="text/css">
+    <script type="text/javascript" src="__STATIC__/js/My97DatePicker/WdatePicker.js" charset="gb2312"></script>
+</head>
+
+<body>
+    <p>请选择教授课程：</p>
+    <form id="form1" name="form1" method="post" action="">
+        <table width="100%" border="1" align="center" cellpadding="3" cellspacing="1" bordercolor="#00FFFF" style="border-collapse:collapse">             
+            
+            <tr><td>课程：</td><td><select name='course' id='course' >                
+                {volist name='course' id='d1'}
+                    <option value="{$d1.course_id}">{$d1.course_name}</option>
+                {/volist}
+            </select></td></tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><input name="addnew" type="hidden" id="addnew" value="1" />
+                <input type="submit" name="Submit" value="添加" style='border:solid 1px #000000; color:#666666' />
+                <input type="reset" name="Submit2" value="重置" style='border:solid 1px #000000; color:#666666' /></td>
+            </tr>
+        </table>
+    </form>
+    <p>&nbsp;</p>
+    <p>授课列表：</p>
+    <table width="100%" border="1" align="center" cellpadding="3" cellspacing="1" bordercolor="#00FFFF" style="border-collapse:collapse">  
+            <tr>
+              <td width="25" bgcolor="#CCFFFF">课程号</td>
+              <td bgcolor='#CCFFFF'>课程名称</td>
+              <td bgcolor='#CCFFFF'>学分</td>
+              <td bgcolor='#CCFFFF'>学时</td>
+              
+            </tr>
+            
+            {volist name='res' id='d' key='k'}
+            <tr>                
+                <td>{$d.course_id}</td>
+                <td>{$d.course_name}</td>
+                <td>{$d.course_score}</td>
+                <td>{$d.course_hour}</td>                                                
+            </tr>
+            {/volist}
+    </table>
+          
+</body>
+</html>
+
+<!-- <tr><td>：</td><td><textarea name='kehubeizhu' cols='50' rows='8' id='kehubeizhu'></textarea></td></tr> -->
+<!-- <tr><td>性别：</td><td><select name='xingbie' id='xingbie'><option value="男">男</option><option value="女">女</option></select></td></tr><script language="javascript">document.form1.xingbie.value='';</script> -->

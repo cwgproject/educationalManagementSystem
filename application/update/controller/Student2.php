@@ -20,7 +20,7 @@ class Student2 extends \app\common\controller\Common{
             ->join('un_academy a','s.academy_id = a.academy_id')
             ->join('un_major m','s.major_id = m.major_id')
             ->join('un_class c','s.class_id = c.class_id')             
-            ->field('u.user_id as id, u.rec_time as rdate,
+            ->field('u.user_id as id, u.register_date as rdate,
              s.stu_sex as sex, c.class_name as class, s.stu_name as name, s.stu_address as tel,
              m.major_name as subject,
              a.academy_name as academy')
@@ -31,7 +31,7 @@ class Student2 extends \app\common\controller\Common{
             }else{
                 $res = Db::table('un_student')-> alias('s')
                 ->join('un_user u','s.stu_rollno = u.user_name')                           
-                ->field('u.user_id as id, u.rec_time as rdate,
+                ->field('u.user_id as id, u.rec_date as rdate,
              s.stu_sex as sex, s.class_id as class, s.stu_name as name, s.stu_address as tel,
              s.major_id as subject,
              s.academy_id as academy')
